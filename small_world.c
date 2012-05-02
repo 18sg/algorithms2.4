@@ -32,3 +32,25 @@ void small_world_init(digraph_t *digraph, size_t k, double b)
 		}
 	}
 }
+
+void small_world_to_graph( digraph_t* digraph, graph_t* graph )
+{
+	int i;
+	int neighbour;
+	
+	for (i = 0; i < digraph->num_nodes; i++)
+	{
+		for (neighbour = 0; neighbour < digraph->out_degree; neighbour++)
+		{
+			if( !edge_list_contains( graph->nodes[i].edge_list, &( graph->nodes[DG_NODE(digraph, i, neighbour)] ) ) )
+			{
+				edge_list_add( &( graph->nodes[i].edge_list ), &( graph->nodes[DG_NODE(digraph, i, neighbour)] ) );
+			}
+			if( !edge_list_contains( graph->nodes[DG_NODE(digraph, i, neighbour)].edge_list, &( graph->nodes[i] ) ) )
+			{
+				edge_list_add( & (graph->nodes[DG_NODE(digraph, i, neighbour)].edge_list ), &( graph->nodes[i] ) );
+			}
+
+		}
+	}
+}

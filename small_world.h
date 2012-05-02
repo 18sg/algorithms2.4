@@ -2,6 +2,7 @@
 #define SMALL_WORLD_H
 
 #include "digraph.h"
+#include "graph.h"
 
 /**
  * Generate a small world network starting with a ring network where each node is
@@ -9,5 +10,6 @@
  * with a probability b.
  */
 void small_world_init(digraph_t *digraph, size_t k, double b);
+void small_world_to_graph( digraph_t* digraph, graph_t* graph );
 
 #endif
