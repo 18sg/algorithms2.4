@@ -20,7 +20,7 @@ void h_downheap(int);
  * pop() to pop the best one off
  */
 void queue_setup(graph_t *);
-void queue_free(void):
+void queue_free(void);
 void push(node_t *);
 node_t *pop();
 
