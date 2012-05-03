@@ -18,6 +18,8 @@ typedef struct edge
 typedef struct node
 {
 	int value;
+	int distance;
+	bool visited;
 	edge_t* edge_list;
 } node_t;
 
