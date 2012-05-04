@@ -4,35 +4,31 @@
 #include "graph.h"
 #include "stats.h"
 
-int total_dist = 0;
-double average_distance = 0;
-int non_reachable_nodes = 0;
-int max_distance = 0;
-
-void get_stats(graph_t *g)
+void stats_init(stats* s)
 {
-	int i;
-	for (i = 1; i < g->num_nodes; ++i)
+	*s = (stats){0,0,0};
+}
+
+void stats_accumulate(stats* stats, graph_t* graph, int source, int distances[])
+{
+ 	for(int i = 0; i < graph->num_nodes; i++)
 	{
-		// count unreachable nodes and total distances
-		if (g->nodes[i].distance == g->num_nodes + 1)
-			non_reachable_nodes++;
-		else
-			total_dist += g->nodes[i].distance;
-		
-		// remember max disatnce
-		if (g->nodes[i].distance > max_distance && g->nodes[i].distance != g->num_nodes + 1) {
-			max_distance = g->nodes[i].distance;
+		if(i != source && distances[i] != INF)
+		{
+			stats->total_distance += distances[i];
+			stats->num_paths++;
+			if(distances[i] > stats->max_distance)
+			{
+				stats->max_distance = distances[i];
+			}
 		}
 	}
 }
 
-void stats_fprint( FILE* stream, graph_t *graph)
+void stats_fprintf(stats* stats, graph_t* graph, FILE* stream)
 {
-	double nodes_squared = (pow(graph->num_nodes, 2) - graph->num_nodes);
-	
-	fprintf(stream, "Max distance: %d\n", max_distance);
-	fprintf(stream, "Total path length: %d\n", total_dist);
+	fprintf(stream, "Max distance: %ld\n", stats->max_distance);
+	fprintf(stream, "Total path length: %ld\n", stats->total_distance);
 	fprintf(stream, "Average path length (L): %f\n",
-			(double)total_dist / (nodes_squared - non_reachable_nodes));
+	        (double)stats->total_distance / (double)stats->num_paths);
 }

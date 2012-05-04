@@ -61,3 +61,18 @@ void graph_fprint( FILE* stream, graph_t* graph )
 	}
 	fprintf( stream, "}\n" );
 }
+
+void graph_destory(graph_t* graph)
+{
+	for(int i =0; i < graph->num_nodes; i++)
+	{
+		edge_t* edge = graph->nodes[i].edge_list;
+		while(edge != NULL)
+		{
+			edge_t* temp_edge = edge->next;
+			free(edge);
+			edge = temp_edge;
+		}
+	}
+	free(graph->nodes);
+}

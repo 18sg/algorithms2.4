@@ -5,6 +5,8 @@
 #include <stddef.h>
 #include <stdio.h>
 
+#define INF INT_MAX
+
 struct edge;
 struct node;
 struct graph;
@@ -33,5 +35,6 @@ bool edge_list_contains(edge_t *edge, node_t *target);
 bool edge_list_add( edge_t** edge, node_t* target );
 void graph_init( graph_t* graph, int num_nodes );
 void graph_fprint( FILE* stream, graph_t* graph );
+void graph_destory( graph_t* graph );
 
 #endif
