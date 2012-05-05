@@ -17,10 +17,10 @@ stats find_stats_for_graph(graph_t* graph, int execute_in_parallel)
 		no_threads_to_use = 0;
 	}
 	stats the_stats;
-	int total_distance = 0;
-	int num_paths = 0;
-	int shared_max_distance = 0;
-	int local_max_distance;
+	unsigned long long total_distance = 0;
+	unsigned long long num_paths = 0;
+	unsigned long long shared_max_distance = 0;
+	unsigned long long local_max_distance;
 	int* disti;
 	#pragma omp parallel private(disti, local_max_distance) shared(shared_max_distance) \
 		num_threads(no_threads_to_use)reduction(+:total_distance, num_paths)

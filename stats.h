@@ -3,9 +3,9 @@
 
 typedef struct
 {
-	long total_distance;
-	long max_distance;
-	long num_paths;
+	unsigned long long total_distance;
+	unsigned long long max_distance;
+	unsigned long long num_paths;
 }stats;
 
 /*

@@ -27,8 +27,8 @@ void stats_accumulate(stats* stats, graph_t* graph, int source, int distances[])
 
 void stats_fprintf(stats* stats, graph_t* graph, FILE* stream)
 {
-	fprintf(stream, "Max distance: %ld\n", stats->max_distance);
-	fprintf(stream, "Total path length: %ld\n", stats->total_distance);
+	fprintf(stream, "Max distance: %llu\n", stats->max_distance);
+	fprintf(stream, "Total path length: %llu\n", stats->total_distance);
 	fprintf(stream, "Average path length (L): %f\n",
 	        (double)stats->total_distance / (double)stats->num_paths);
 }
