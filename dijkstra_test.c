@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	size_t k = 2;    // Distance of furthest neighbour
 	double b = 0.5;  // Small-world Randomisation
 	int parallelise = 0;
-	char opt;
+	int opt;
 	while((opt = getopt(argc, argv, "n:k:b:p")) != -1)
 	{
 		switch(opt)
