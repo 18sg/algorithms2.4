@@ -9,7 +9,7 @@ void queue_init(queue* q)
 	q->free_head = NULL;
 }
 
-void queue_push_back(queue* q, int idx)
+void queue_push_back(queue* q, packed_node *node)
 {
 	queue_element* new_element;
 	if(q->free_head != NULL)
@@ -22,7 +22,7 @@ void queue_push_back(queue* q, int idx)
 		new_element = malloc(sizeof(*new_element));
 	}
 
-	new_element->idx = idx;
+	new_element->node = node;
 	new_element->next = NULL;
 
 	if(q->head == NULL)
@@ -42,7 +42,7 @@ int queue_has_elements(queue* q)
 	return (q->head != NULL);
 }
 
-int queue_pop(queue* q)
+packed_node *queue_pop(queue* q)
 {
 	assert(queue_has_elements(q));
 
@@ -57,7 +57,7 @@ int queue_pop(queue* q)
 	t_element->next = q->free_head;
 	q->free_head = t_element;
 
-	return t_element->idx;
+	return t_element->node;
 }
 
 void queue_destory(queue* q)

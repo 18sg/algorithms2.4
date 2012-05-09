@@ -9,7 +9,7 @@ void stats_init(stats* s)
 	*s = (stats){0,0,0};
 }
 
-void stats_accumulate(stats* stats, graph_t* graph, int source, int distances[])
+void stats_accumulate(stats* stats, packed_graph* graph, int source, int distances[])
 {
  	for(int i = 0; i < graph->num_nodes; i++)
 	{
@@ -25,7 +25,7 @@ void stats_accumulate(stats* stats, graph_t* graph, int source, int distances[])
 	}
 }
 
-void stats_fprintf(stats* stats, graph_t* graph, FILE* stream)
+void stats_fprintf(stats* stats, packed_graph* graph, FILE* stream)
 {
 	fprintf(stream, "Max distance: %llu\n", stats->max_distance);
 	fprintf(stream, "Total path length: %llu\n", stats->total_distance);

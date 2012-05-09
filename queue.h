@@ -1,9 +1,13 @@
-#include <assert.h>
+#ifndef QUEUE_H
+#define QUEUE_H
+
+#include "packed_graph.h"
+
 typedef struct queue_element queue_element;
 struct queue_element
 {
 	queue_element* next;
-	int idx;
+	packed_node *node;
 };
 
 typedef struct
@@ -14,7 +18,9 @@ typedef struct
 }queue; 
 
 void queue_init(queue* q);
-void queue_push_back(queue* q, int idx);
+void queue_push_back(queue* q, packed_node *node);
 int queue_has_elements(queue* q);
-int queue_pop(queue* q);
+packed_node *queue_pop(queue* q);
 void queue_destory(queue* q);
+
+#endif

@@ -5,7 +5,7 @@
 #include "stats.h"
 #include "bfs.h"
 
-stats find_stats_for_graph(graph_t* graph, int execute_in_parallel)
+stats find_stats_for_graph(packed_graph* graph, int execute_in_parallel)
 {
 	// By default we will execute serially.
 	int no_threads_to_use = 1;
@@ -62,7 +62,7 @@ stats find_stats_for_graph(graph_t* graph, int execute_in_parallel)
 
 
 
-void bfs(graph_t* graph, int sauce, int distances[])
+void bfs(packed_graph* graph, int sauce, int distances[])
 {
 	queue q;
 	queue_init(&q);
@@ -73,23 +73,20 @@ void bfs(graph_t* graph, int sauce, int distances[])
 	}
 	distances[sauce] = 0;
 
-	queue_push_back(&q, sauce);
+	queue_push_back(&q, graph->nodes[sauce]);
 
 	while(queue_has_elements(&q))
 	{
-		int idx = queue_pop(&q);
-		edge_t* adj_list = graph->nodes[idx].edge_list;
-
-		while(adj_list != NULL)
+		packed_node *current = queue_pop(&q);
+		
+		for (int i = 0; i < current->degree; i++)
 		{
-			node_t* adj_node = adj_list->target;
-			int adjidx = adj_node - graph->nodes;
-			if(distances[adjidx] == INF)
+			packed_node* adj_node = current->edges[i];
+			if(distances[adj_node->idx] == INF)
 			{
-				distances[adjidx] = distances[idx] + 1;
-				queue_push_back(&q, adjidx);
+				distances[adj_node->idx] = distances[current->idx] + 1;
+				queue_push_back(&q, adj_node);
 			}
-			adj_list = adj_list->next;
 		}
 	}
 	queue_destory(&q);

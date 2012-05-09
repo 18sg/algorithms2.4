@@ -4,7 +4,7 @@
 #include <getopt.h>
 #include <ctype.h>
 #include "digraph.h"
-#include "graph.h"
+#include "packed_graph.h"
 #include "small_world.h"
 #include "dijkstra.h"
 #include "stats.h"
@@ -55,21 +55,15 @@ int main(int argc, char *argv[])
 
 	digraph_init(&digraph, n, k);
 	small_world_init(&digraph, k, b);
-	//digraph_fprint(stdout, &digraph);
+	
+	packed_graph *graph = digraph_to_packed(&digraph);
 
-	graph_t graph;
+	stats s = find_stats_for_graph(graph, parallelise);
 
-
-	graph_init( &graph, ( &digraph )->num_nodes );
-
-	small_world_to_graph( &digraph, &graph );
-
-	stats s = find_stats_for_graph(&graph, parallelise);
-
-	stats_fprintf(&s, &graph, stdout);
+	stats_fprintf(&s, graph, stdout);
 
 	digraph_free(&digraph);
-	graph_destory(&graph);
+	packed_free(graph);
 
 	return 0;
 }

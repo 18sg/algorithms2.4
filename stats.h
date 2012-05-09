@@ -1,6 +1,8 @@
 #ifndef STATS_H
 #define STATS_H
 
+#include "packed_graph.h"
+
 typedef struct
 {
 	unsigned long long total_distance;
@@ -14,6 +16,6 @@ typedef struct
  * stats_fprintf() does what it says on the tin
  */
 void stats_init(stats* stats);
-void stats_accumulate(stats* stats, graph_t* graph, int source, int distances[]);
-void stats_fprintf(stats* stats, graph_t* graph, FILE* buf);
+void stats_accumulate(stats* stats, packed_graph* graph, int source, int distances[]);
+void stats_fprintf(stats* stats, packed_graph* graph, FILE* buf);
 #endif
