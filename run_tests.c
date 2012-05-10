@@ -68,8 +68,8 @@ void print_info(info i)
 int main(int argc, char **argv)
 {
 	print_header();
-	for (int n = 200; n < 10000; n += 200) {
-		for (int k = 1; k < 20; k++) {
+	for (int n = 200; n <= 10000; n += 200) {
+		for (int k = 1; k <= 20; k++) {
 			for (int b = 0; b <= 100; b += 5) {
 				print_info(get_info((params){n, k, (double)b / 100.0}));
 			}
