@@ -67,6 +67,7 @@ void print_info(info i)
 
 int main(int argc, char **argv)
 {
+	srand(time(NULL));
 	print_header();
 	for (int n = 200; n <= 10000; n += 200) {
 		for (int k = 1; k <= 20; k++) {
