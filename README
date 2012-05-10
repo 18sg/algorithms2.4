@@ -22,7 +22,7 @@ This builds some binaries:
     -n: The number of nodes in the graph.
     -k: The distance of the furthest neighbour.
     -b: The small-world randomisation (should be a float in the interval [0, 1]).
-    -p: Whether to use palletisation for graph processing.
+    -p: Whether to use parallelisation for graph processing.
     -g: File to save the graph to in graphviz format.
   
   To render a graph:
