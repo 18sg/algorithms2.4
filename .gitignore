@@ -1,4 +1,6 @@
 .*
 *~
 *.o
-main
+run_test
+run_tests
+packed_graph_test

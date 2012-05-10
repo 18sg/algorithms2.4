@@ -30,5 +30,8 @@ int main() {
 	}
 	
 	assert(no_edges == digraph.num_nodes * digraph.out_degree * 2);
+	
+	digraph_free(&digraph);
+	packed_free(g);
 }
 

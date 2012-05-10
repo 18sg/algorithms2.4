@@ -1,0 +1,134 @@
+Algorithms Coursework: Small-World Network Average Path Lengths
+===============================================================
+
+Implementation
+--------------
+
+Our implementation is written in C. To compile:
+
+  $ make
+
+This builds some binaries:
+
+- run_test
+  
+  This generates and analyses a small world network, and prints out the maximum
+  distance, total path length, and the average path length.
+  
+  The options are as follows:
+  
+    ./run_test [-n nodes] [-k distance] [-b rand] [-p] [-g file]
+    
+    -n: The number of nodes in the graph.
+    -k: The distance of the furthest neighbour.
+    -b: The small-world randomisation (should be a float in the interval [0, 1]).
+    -p: Whether to use palletisation for graph processing.
+    -g: File to save the graph to in graphviz format.
+  
+  To render a graph:
+  
+    $ ./run_test -g /tmp/graph
+    $ circo /tmp/graph -Tpng > /tmp/graph.png 
+    $ eog /tmp/graph.png
+  
+- run_tests
+  
+  This runs a load of tests (21000 in total) with various parameters, printing
+  a csv file to stdout with the following fields:
+  
+    num_nodes
+      The number of nodes in the graph.
+    out_degree
+      The number of neighbours each node is connected to in the generated ring
+      network.
+    randomisation
+      The probability of randomly re-wiring an edge.
+    L
+      The calculated average path length.
+    max_dist
+      The maximum found path length.
+    total_dist
+      The total path length.
+    time
+      The cpu time it took to run this test.
+  
+  This takes about 1.5 hours to run on mcore48. This was ran three times; the
+  produced data files are in the `data` directory. The parameters can be adjusted fairly simply in the `main` function at the bottom of `run_tests.c`.
+  
+- packed_graph_test
+  
+  A quick test of the packed_graph representation. This should produce no
+  errors, and not leak any memory.
+
+Organisation
+~~~~~~~~~~~~
+
+The implementation is organised into several pairs of C and header files:
+
+- digraph
+  
+  A representation of a digraph where the out-degree of each node is fixed.
+  
+- graph
+  
+  Contains a more flexible graph representation, where each node contains a
+  linked list of edges. Each edge is stored by two links in opposite directions
+  for fast traversal.
+  
+- packed_graph
+  
+  Contains a more compact (and therefore slightly more efficient by about 10%)
+  representation of a graph, and a function for converting to this from the
+  digraph representation..
+  
+- small_world
+  
+  Contains a function for small-worldifying a digraph (the most natural
+  representation for this), and a function for converting a digraph to a graph.
+  
+- dijkstra
+  
+  Contains an implementation of Dijkstra's algorithm.
+  
+- pqueue
+  
+  Contains an implementation of a bininary-heap priority queue, used by
+  Dijkstra's algorithm.
+  
+- bfs
+  
+  Contains an implementation of breadth-first search, and a parallelised
+  all-pairs shortest path function. This operates on a packed_graph.
+  
+- queue
+  
+  Contains an implementation of a linked-list queue, used by BFS.
+  
+- stats.
+  
+  Deals with various graph statistics.
+
+Analysis
+========
+
+All analysis was performed in R. To run the plotting scripts, the following R
+packages are required:
+
+- reshape2
+- plyr
+- lattice
+
+Scripts
+~~~~~~~
+
+- util.r
+  
+  Contains functions for loading data from data files.
+  
+- plots.r
+  
+  Plots the three graphs as seen on the poster into the `plots` directory.
+
+
+
+
