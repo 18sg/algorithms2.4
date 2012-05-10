@@ -92,7 +92,7 @@ The implementation is organised into several pairs of C and header files:
   
 - pqueue
   
-  Contains an implementation of a bininary-heap priority queue, used by
+  Contains an implementation of a binary-heap priority queue, used by
   Dijkstra's algorithm.
   
 - bfs
